@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TravelMatics</string>
+    <string name="enter_title">Enter: Title</string>
+    <string name="enter_price">Enter: Price (numbers only)</string>
+    <string name="enter_description">Enter: Description</string>
+    <string name="save_menu">Save</string>
+    <string name="tour_image_description">Tour Image</string>
+</resources>
