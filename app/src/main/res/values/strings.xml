@@ -5,4 +5,5 @@
     <string name="enter_description">Enter: Description</string>
     <string name="save_menu">Save</string>
     <string name="tour_image_description">Tour Image</string>
+    <string name="delete_deal">Delete Deal</string>
 </resources>

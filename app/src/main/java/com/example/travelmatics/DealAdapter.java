@@ -1,6 +1,7 @@
 package com.example.travelmatics;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +20,18 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder>  {
+public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder> {
     ArrayList<TravelDeal> travelDeals;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mChildEventListener;
-
+    private static boolean changed;
     public DealAdapter(){
         FirebaseUtil.openFbReference("traveldeals");
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         travelDeals = FirebaseUtil.mDeals;
+        changed = false;
         mChildEventListener = new ChildEventListener(){
             @Override
             public void onChildAdded(DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -77,7 +79,7 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         return travelDeals.size();
     }
 
-    public class DealViewHolder extends RecyclerView.ViewHolder{
+    public class DealViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvTitle;
         TextView tvDescription;
         TextView tvPrice;
@@ -86,12 +88,22 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
             tvTitle = (TextView) itemView.findViewById(R.id.tvTtile);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(TravelDeal deal){
             tvTitle.setText(deal.getTitle());
             tvDescription.setText(deal.getDescription());
             tvPrice.setText(deal.getPrice());
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            TravelDeal deal = travelDeals.get(position);
+            Intent intent = new Intent(view.getContext(), DealActivity.class);
+            intent.putExtra("Deal", deal);
+            view.getContext().startActivity(intent);
         }
     }
 
