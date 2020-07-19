@@ -4,4 +4,7 @@
     <item android:id="@+id/add_deal"
         android:title="Add"
         app:showAsAction="never"/>
+    <item android:id="@+id/logout"
+        android:title="@string/logout"
+        app:showAsAction="never"/>
 </menu>

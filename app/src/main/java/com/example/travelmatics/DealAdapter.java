@@ -25,16 +25,13 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mChildEventListener;
-    private static boolean changed;
     public DealAdapter(){
-        FirebaseUtil.openFbReference("traveldeals");
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         travelDeals = FirebaseUtil.mDeals;
-        changed = false;
         mChildEventListener = new ChildEventListener(){
             @Override
-            public void onChildAdded(DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 TravelDeal td = snapshot.getValue(TravelDeal.class);
                 td.setId(snapshot.getKey());
                 Log.d("Deal", td.getTitle());
@@ -42,26 +39,26 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
                 notifyItemInserted(travelDeals.size() - 1);
             }
             @Override
-            public void onChildChanged(DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
             @Override
-            public void onChildRemoved(DataSnapshot snapshot) {
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
             }
             @Override
-            public void onChildMoved(DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             }
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         };
         mDatabaseReference.addChildEventListener(mChildEventListener);
 
     }
-
+    @NonNull
     @Override
-    public DealViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.rv_holder, parent, false);
