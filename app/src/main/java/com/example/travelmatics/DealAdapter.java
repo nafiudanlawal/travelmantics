@@ -2,10 +2,12 @@ package com.example.travelmatics;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -80,11 +83,13 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         TextView tvTitle;
         TextView tvDescription;
         TextView tvPrice;
+        ImageView imageView;
         public DealViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTtile);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+            imageView = (ImageView) itemView.findViewById(R.id.iv_thumbnail);
             itemView.setOnClickListener(this);
         }
 
@@ -92,6 +97,15 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
             tvTitle.setText(deal.getTitle());
             tvDescription.setText(deal.getDescription());
             tvPrice.setText(deal.getPrice());
+            int width = Resources.getSystem().getDisplayMetrics().widthPixels;
+            if(!deal.getImageURL().isEmpty() && deal.getImageURL() != null){
+                Picasso.get()
+                        .load(deal.getImageURL())
+                        .resize(160, 160)
+                        .centerCrop()
+                        .into(imageView);
+            }
+
         }
 
         @Override

@@ -9,14 +9,16 @@ public class TravelDeal implements Parcelable {
     private String description;
     private String price;
     private String imageURL;
+    private String imageName;
 
     public TravelDeal() {}
 
-    public TravelDeal(String title, String description, String price, String imageURL) {
+    public TravelDeal(String title, String description, String price, String imageURL, String imageName) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.imageURL = imageURL;
+        this.imageName = imageName;
     }
 
     protected TravelDeal(Parcel in) {
@@ -91,5 +93,13 @@ public class TravelDeal implements Parcelable {
         parcel.writeString(description);
         parcel.writeString(price);
         parcel.writeString(imageURL);
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
